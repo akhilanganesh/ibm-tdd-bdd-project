@@ -101,6 +101,30 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(new_product.available, product.available)
         self.assertEqual(new_product.category, product.category)
 
-    #
-    # ADD YOUR TEST CASES HERE
-    #
+    def test_read_a_product(self):
+        """It should Read a product already in the database"""
+        raise NotImplementedError()
+    
+    def test_update_a_product(self):
+        """It should Update a product already in the database"""
+        raise NotImplementedError()
+    
+    def test_delete_a_product(self):
+        """It should Delete a product already in the database"""
+        raise NotImplementedError()
+    
+    def test_list_all_products(self):
+        """It should list all products in the database"""
+        raise NotImplementedError()
+    
+    def test_find_product_by_name(self):
+        """It should find a product in the database by name"""
+        raise NotImplementedError()
+    
+    def test_find_product_by_availability(self):
+        """It should find a product in the database by availability"""
+        raise NotImplementedError()
+    
+    def test_find_product_by_category(self):
+        """It should find a product in the database by category"""
+        raise NotImplementedError()
