@@ -104,7 +104,7 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(new_product.category, product.category)
 
     def test_read_a_product(self):
-        """It should Read a product already in the database"""
+        """It should read a product already in the database"""
         # Create fake Product
         product = ProductFactory()
         logger.info(product)
@@ -171,14 +171,18 @@ class TestProductModel(unittest.TestCase):
         # Check that there are no products in database at start
         products = Product.all()
         self.assertEqual(len(products), 0)
-        # Create five fake Products
-        for _ in range(5):
-            # Create fake Product
-            product = ProductFactory()
+        # Create five fake Products and publish to database
+        products = ProductFactory.create_batch(5)
+        for product in products:
             product.create()
-        # Check that there are five products in the database
+        # Retrieve products from database
         new_products = Product.all()
+        # Check that there are five products in the database
         self.assertEqual(len(new_products), 5)
+        # Check that the database products match the local
+        # products, in no particular order
+        for product in products:
+            self.assertIn(product, new_products)
 
     def test_find_product_by_name(self):
         """It should find a product in the database by name"""
@@ -300,12 +304,17 @@ class TestProductModel(unittest.TestCase):
         # Create a dict via serialization
         product_dict = ProductFactory().serialize()
         # Make available attribute invalid and check for error
-        test_dict = product_dict
+        test_dict = product_dict.copy()
         test_dict["available"] = 1
         self.assertRaises(DataValidationError,
                           product.deserialize, test_dict)
         # Delete price attribute and check for error
-        test_dict = product_dict
+        test_dict = product_dict.copy()
         del test_dict["price"]
+        self.assertRaises(DataValidationError,
+                          product.deserialize, test_dict)
+        # Make category attribute point to non-enum string value
+        test_dict = product_dict.copy()
+        test_dict["category"] = "This is junk"
         self.assertRaises(DataValidationError,
                           product.deserialize, test_dict)
