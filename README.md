@@ -1,6 +1,6 @@
 # TDD / BDD Final Project
 
-Final Project for the Coursera course **Introduction to TDD/BDD**. By Akhilan Ganesh. 
+Final Project for the edX course **Introduction to TDD/BDD**. By Akhilan Ganesh. 
 
 This project is primarily in Python, with the use of tools like PyUnit, Flask (RESTful API), Selenium, Gherkin syntax, and Behave.
 
